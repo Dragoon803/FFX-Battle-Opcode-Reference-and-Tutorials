@@ -94,106 +94,106 @@ FFX Opcode Information Compilation
 ***BATTLE OPCODE***
 
 -Decision Logic-
-  01 = or
-  02 = and
-  06 = ==
-  07 = !=
-  0A = >
-  0B = <
-  0E = >=
-  0F = <=
-  13 = >>
-  14 = +
-  15 = -
-  16 = *
-  17 = /
+  01h = or
+  02h = and
+  06h = ==
+  07h = !=
+  0Ah = >
+  0Bh = <
+  0Eh = >=
+  0Fh = <=
+  13h = >>
+  14h = +
+  15h = -
+  16h = *
+  17h = /
 
 -Target- 
-  FFEF = LastAttacker
-  FFF1 = AllMonsters
-  FFF2 = FrontlineChars
-  FFF3 = Self
-  FFFB = AllActors
-  0000 = Tidus
-  0100 = Yuna
-  0200 = Auron
-  0300 = Kimahri
-  0400 = Wakka
-  0500 = Lulu
-  0600 = Rikku
-  1400 = Monster#00
-  1500 = Monster#01
-  1600 = Monster#02
-  1700 = Monster#03
-  1800 = Monster#04
-  1900 = Monster#05
-  1A00 = Monster#06
-  1B00 = Monster#07
+  FFEF   =  LastAttacker
+  FFF1   =  AllMonsters
+  FFF2   =  FrontlineChars
+  FFF3   =  Self
+  FFFB   =  AllActors
+  00h    =  Tidus
+  01h    =  Yuna
+  02h    =  Auron
+  03h    =  Kimahri
+  04h    =  Wakka
+  05h    =  Lulu
+  06h    =  Rikku
+  14h    =  Monster#00
+  15h    =  Monster#01
+  16h    =  Monster#02
+  17h    =  Monster#03
+  18h    =  Monster#04
+  19h    =  Monster#05
+  1Ah    =  Monster#06
+  1Bh    =  Monster#07
     
 -Character Properties-
-  HP          00h
-  MP          01h
-  IsAlive     04h
-  STR         09h
-  DEF         0Ah
-  MAG         0Bh
-  MDF         0Ch
-  AGI         0Dh
-  LCK         0Eh
-  EVA         0Fh
-  ACC         10h
-  OD Current  13h
-  GetsTurns   51h
-  Targetable  52h
+  00h  =  HP
+  01h  =  MP
+  04h  =  IsAlive
+  09h  =  STR
+  0Ah  =  DEF
+  0Bh  =  MAG
+  0Ch  =  MDF
+  0Dh  =  AGI
+  0Eh  =  LCK
+  0Fh  =  EVA
+  10h  =  ACC
+  13h  =  OD Current
+  51h  =  GetsTurns
+  52h  =  Targetable
 
-  0500 = StatusPoison 
-  0700 = StatusZombie
-  2500 = StatusPowerBreak
-  2600 = StatusMagicBreak
-  2700 = StatusArmorBreak
-  2800 = StatusMentalBreak
-  2900 = StatusConfusion
-  2A00 = StatusBerserk
-  2B00 = StatusProvoke
-  2D00 = StatusSleep
-  2E00 = StatusSilence
-  2F00 = StatusDarkness
-  3000 = StatusShell
-  3100 = StatusProtect
-  3200 = StatusReflect
-  3300 = StatusNulTide
-  3400 = StatusNulBlaze
-  3500 = StatusNulShock
-  3600 = StatusNulFrost
-  3700 = StatusRegen
-  3800 = StatusHaste
-  3900 = StatusSlow
-  9700 = StatusEject
-  9900 = StatusCurse
+  05h  =  StatusPoison 
+  07h  =  StatusZombie
+  25h  =  StatusPowerBreak
+  26h  =  StatusMagicBreak
+  27h  =  StatusArmorBreak
+  28h  =  StatusMentalBreak
+  29h  =  StatusConfusion
+  2Ah  =  StatusBerserk
+  2Bh  =  StatusProvoke
+  2Dh  =  StatusSleep
+  2Eh  =  StatusSilence
+  2Fh  =  StatusDarkness
+  30h  =  StatusShell
+  31h  =  StatusProtect
+  32h  =  StatusReflect
+  33h  =  StatusNulTide
+  34h  =  StatusNulBlaze
+  35h  =  StatusNulShock
+  36h  =  StatusNulFrost
+  37h  =  StatusRegen
+  38h  =  StatusHaste
+  39h  =  StatusSlow
+  97h  =  StatusEject
+  99h  =  StatusCurse
 
-  6200 = AbsorbFire
-  6700 = NullFire
-  6C00 = ResistFire
-  7100 = WeakFire
-  6300 = AbsorbIce
-  6800 = NullIce
-  6D00 = ResistIce
-  7200 = WeakIce
-  6400 = AbsorbThunder
-  6900 = NullThunder
-  6E00 = ResistThunder
-  7300 = WeakThunder
-  6500 = AbsorbWater
-  6A00 = NullWater
-  6F00 = ResistWater
-  7400 = WeakWater
-  6600 = AbsorbHoly
-  6B00 = NullHoly
-  7000 = ResistHoly
-  7500 = WeakHoly
+  62h  =  AbsorbFire
+  67h  =  NullFire
+  6Ch  =  ResistFire
+  71h  =  WeakFire
+  63h  =  AbsorbIce
+  68h  =  NullIce
+  6Dh  =  ResistIce
+  72h  =  WeakIce
+  64h  =  AbsorbThunder
+  69h  =  NullThunder
+  6Eh  =  ResistThunder
+  73h  =  WeakThunder
+  65h  =  AbsorbWater
+  6Ah  =  NullWater
+  6Fh  =  ResistWater
+  74h  =  WeakWater
+  66h  =  AbsorbHoly
+  6Bh  =  NullHoly
+  70h  =  ResistHoly
+  75h  =  WeakHoly
   
 -Selector-
-  Any/All 	 00h
-  Highest    01h
-  Lowest     02h
-  Not        80h
+  00h  =  Any/All
+  01h  =  Highest
+  02h  =  Lowest
+  80h  =  Not
