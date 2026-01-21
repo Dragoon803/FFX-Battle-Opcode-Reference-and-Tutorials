@@ -191,6 +191,6 @@ FFX Opcode Information Compilation
   
 -Selector-
   Any/All 	 00h
-  Highest		 01h
+  Highest    01h
   Lowest     02h
   Not        80h
