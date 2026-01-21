@@ -131,20 +131,20 @@ FFX Opcode Information Compilation
   1B00 = Monster#07
     
 -Character Properties-
-  HP 			    00h
-  MP 			    01h
-  IsAlive 	  04h
-  STR 			  09h
-  DEF 			  0Ah
-  MAG 			  0Bh
-  MDF 			  0Ch
-  AGI 			  0Dh
-  LCK 			  0Eh
-  EVA			    0Fh
-  ACC			    10h
-  OD Current	13h
-  GetsTurns		51h
-  Targetable	52h
+  HP          00h
+  MP          01h
+  IsAlive     04h
+  STR         09h
+  DEF         0Ah
+  MAG         0Bh
+  MDF         0Ch
+  AGI         0Dh
+  LCK         0Eh
+  EVA         0Fh
+  ACC         10h
+  OD Current  13h
+  GetsTurns   51h
+  Targetable  52h
 
   0500 = StatusPoison 
   0700 = StatusZombie
