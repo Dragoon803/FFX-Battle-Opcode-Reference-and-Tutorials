@@ -1,0 +1,197 @@
+FFX Opcode Information Compilation
+
+***CHECKS***
+
+-Damage type-
+  9F0600 AE0100 B51A70 AE0100 07 D71D00            Check ([701Ah] var06.damageType [01h] != Physical [01h]) else jump to j1D (0457)
+  9F0600 AE0100 B51A70 AE0200 07 D71D00            Check ([701Ah] var06.damageType [01h] != Magical [02h]) else jump to j1D (0457)
+  9F0A00 AE0100 B51A70 AE0000 07 D71D00            Check ([701Ah] var06.damageType [01h] != Special [00h]) else jump to j1D (0457)
+
+  9F0600 AE0100 B51A70 AE0100 06 D71D00            Check ([701Ah] var06.damageType [01h] == Physical [01h]) else jump to j1D (0457)
+  9F0600 AE0100 B51A70 AE0200 06 D71D00            Check ([701Ah] var06.damageType [01h] == Magical [02h]) else jump to j1D (0457)
+  9F0A00 AE0100 B51A70 AE0000 06 D71D00            Check ([701Ah] var06.damageType [01h] == Special [00h]) else jump to j1D (0457)
+  
+-If damage taken-
+  AEF3FF AEA600 B50F70 AE0000 0A D70900            Check ([700Fh] Self [FFF3h].LastDamageTakenHP [A6h] > 0 [00h]) else jump to j09 (01F2)
+  
+-Remaining HP-
+  AEF3FF AE0000 B50F70 AEF3FF AE0200 B50F70 AE0300 17 0B D70800 	  Check ([700Fh] Self [FFF3h].HP [00h] < ([700Fh] Self [FFF3h].maxHP [02h] / 3 [03h])) else jump to j08 (01E2)
+  
+-Number of actors on field-  
+  AEFBFF AEF1FF B51E70 A00600                      Set var06 [A00600] = Battle.countChrOverlap [701Eh](group=AllActors [FFFBh], btlChr=AllMonsters [FFF1h]);
+  9F0600 AE0100 06 D70200                          Check (var06 [9F0600] == 1 [01h]) else jump to j02 (025F)
+  9F0600 AE0100 07 D70200                          Check (var06 [9F0600] != 1 [01h]) else jump to j02 (025F)
+  
+-Command used-
+  B51970 AE2031 06 D71600                          					    Check (Battle.usedCommand [7019h] == "Death" [3120AEh]) else jump to j16 (02D6)
+  B51970 AE0630 06 B51970 AE0730 06 01 D70900      					    Check ((Battle.usedCommand [7019h] == "Delay Attack" [3006h]) or (Battle.usedCommand [7019h] == "Delay Buster" [3007h])) else jump to j09 (024F)
+  B51970 AE7960 06 AEF3FF AEA600 B50F70 AE0000 0A 02 D72500 		Check ((Battle.usedCommand [7019h] == "Flare" [6079h]) and ([700Fh] Self [FFF3h].LastDamageTakenHP [A6h] > 0 [00h])) else jump to j25 (0568)
+
+-Variable comparisons-
+  9F0300 AE0000 06 D70400                          Check (priv0004[9F0300] == 0 [00h]) else jump to j04 (0170)		//Compares Var03[9F0300]
+  9F0100 AE0200 0B D70600                          Check (priv0004[9F0100] < 2 [02h]) else jump to j06 (017F)		//Compares Var01[9F0100]
+  
+-Specific targets-
+  AE0200 AE1500 B50F70 AE0200 AE0400 B50F70 02 D70500 				Check ([700Fh] Auron [02h].isOnFrontline [15h] and [700Fh] Auron [02h].isAlive [04h]) else jump to j05 (0143)
+  AEF2FF AEECFF B51E70 D70000                      					  Check (Battle.countChrOverlap [701Eh](group=FrontlineChars [FFF2h], btlChr=AllAeons [FFECh])) else jump to j00 (010D)
+  
+-Location encounter-
+  B52470 AD0000 06 D70000                          Check (Battle.CurrentEncounter [7024h] == maca03_20 [014D0014h]) else jump to j00 (00FA)
+  9F0600 AD0000 06 D70800                          Check (priv0008 == bsil07_00 [00480000h]) else jump to j08 (01AC)
+  
+-Can counterattack-
+  B5E070 D70600                                    Check (Battle.isCounterattackAllowed [70E0h]()) else jump to j06 (0257)
+
+
+
+***ASSIGNMENTS***
+
+-Setting stats-
+  AEF3FF AE0B00 AEB400 D81870                      Set [7018h] Self [FFF3h].MAG [0Bh] = 180 [B4h];
+
+-Setting Character Properties-
+  AE1400 AE6200 AE0000 D81870                      Set [7018h] Monster#00 [14h].AbsorbFire [62h] = false [00h];
+  AEF3FF AE6800 AE0100 D81870                      Set [7018h] Self [FFF3h].NullIce [68h] = true [01h];
+  
+-Setting variables-
+  AE0000 A00100                                    Set priv0000 = 0 [00h];
+  AE2D30 A00500                                    Set priv001C = "Curaga" [302Dh];
+  AEF2FF AE0400 AE0000 AE0000 B51070 A00300        Set priv0010 = Battle.findMatchingChr [7010h](group=FrontlineChars [FFF2h], property=isAlive [04h], unused=0 [00h], selector=Any/All [00h]);
+
+
+
+
+***Battle***
+
+-PerformCommand-
+  9F0300 AE3040 D80B70                             call Battle.performCommand [700Bh](target=priv0000, command="Rush" [4030h]);
+  AE0200 AE9A40 D80B70                             call Battle.performCommand [700Bh](target=Auron [02h], command="[Attack]" [409Ah]);
+  AEF2FF AE4E30 D80B70                             call Battle.performCommand [700Bh](target=FrontlineChars [FFF2h], command="Demi" [304Eh]);
+
+-FindMatchingChr-
+  AEF2FF AE0400 AE0000 AE0000 D81070               call Battle.findMatchingChr [7010h](group=FrontlineChars [FFF2h], property=isAlive [04h], unused=0 [00h], selector=Any/All [00h]);
+  
+
+-RunBtlScene-
+  AE0000 D89770                                    call Battle.runBtlSceneB [7097h](btlScene=0 [00h]);
+  AE0100 D89770                                    call Battle.runBtlSceneB [7097h](btlScene=1 [01h]);
+
+-CamReq-
+  AE0100 AE1C00 D83F70                             call Battle.camReq [703Fh](p1=1 [01h], p2=28 [1Ch]);
+
+-ScaleOwnSize-
+  AF0700 AF0700 AF0700 D82870                      call Battle.scaleOwnSize [7028h](x?=0.7 [3F333333h], y?=0.7 [3F333333h], z?=0.7 [3F333333h]);
+
+-BtlSetBindEffect-
+   AE0000 AE0000 D85D70                             call Battle.btlSetBindEffect [705Dh](p1=0 [00h], p2=0 [00h]);
+
+-BtlSoundEffect-
+  AEF3FF AE0A00 D87B70                             call Battle.btlSoundEffect [707Bh](btlChr=Self [FFF3h], sfx=btl_se_appear [0Ah]);
+  AEF3FF AE2000 D8C970                             call Battle.btlSoundEffect3 [70C9h](btlChr=Self [FFF3h], sfx=btl_se_start_attack_miss [20h]);
+
+***BATTLE OPCODE***
+
+-Decision Logic-
+  01 = or
+  02 = and
+  06 = ==
+  07 = !=
+  0A = >
+  0B = <
+  0E = >=
+  0F = <=
+  13 = >>
+  14 = +
+  15 = -
+  16 = *
+  17 = /
+
+-Target- 
+  FFEF = LastAttacker
+  FFF1 = AllMonsters
+  FFF2 = FrontlineChars
+  FFF3 = Self
+  FFFB = AllActors
+  0000 = Tidus
+  0100 = Yuna
+  0200 = Auron
+  0300 = Kimahri
+  0400 = Wakka
+  0500 = Lulu
+  0600 = Rikku
+  1400 = Monster#00
+  1500 = Monster#01
+  1600 = Monster#02
+  1700 = Monster#03
+  1800 = Monster#04
+  1900 = Monster#05
+  1A00 = Monster#06
+  1B00 = Monster#07
+    
+-Character Properties-
+  HP 			    00h
+  MP 			    01h
+  IsAlive 	  04h
+  STR 			  09h
+  DEF 			  0Ah
+  MAG 			  0Bh
+  MDF 			  0Ch
+  AGI 			  0Dh
+  LCK 			  0Eh
+  EVA			    0Fh
+  ACC			    10h
+  OD Current	13h
+  GetsTurns		51h
+  Targetable	52h
+
+  0500 = StatusPoison 
+  0700 = StatusZombie
+  2500 = StatusPowerBreak
+  2600 = StatusMagicBreak
+  2700 = StatusArmorBreak
+  2800 = StatusMentalBreak
+  2900 = StatusConfusion
+  2A00 = StatusBerserk
+  2B00 = StatusProvoke
+  2D00 = StatusSleep
+  2E00 = StatusSilence
+  2F00 = StatusDarkness
+  3000 = StatusShell
+  3100 = StatusProtect
+  3200 = StatusReflect
+  3300 = StatusNulTide
+  3400 = StatusNulBlaze
+  3500 = StatusNulShock
+  3600 = StatusNulFrost
+  3700 = StatusRegen
+  3800 = StatusHaste
+  3900 = StatusSlow
+  9700 = StatusEject
+  9900 = StatusCurse
+
+  6200 = AbsorbFire
+  6700 = NullFire
+  6C00 = ResistFire
+  7100 = WeakFire
+  6300 = AbsorbIce
+  6800 = NullIce
+  6D00 = ResistIce
+  7200 = WeakIce
+  6400 = AbsorbThunder
+  6900 = NullThunder
+  6E00 = ResistThunder
+  7300 = WeakThunder
+  6500 = AbsorbWater
+  6A00 = NullWater
+  6F00 = ResistWater
+  7400 = WeakWater
+  6600 = AbsorbHoly
+  6B00 = NullHoly
+  7000 = ResistHoly
+  7500 = WeakHoly
+  
+-Selector-
+  Any/All 	00h
+  Highest		01h
+  Lowest		02h
+  Not			  80h
