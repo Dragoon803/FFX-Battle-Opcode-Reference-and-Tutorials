@@ -28,8 +28,8 @@ FFX Opcode Information Compilation
   B51970 AE7960 06 AEF3FF AEA600 B50F70 AE0000 0A 02 D72500      Check ((Battle.usedCommand [7019h] == "Flare" [6079h]) and ([700Fh] Self [FFF3h].LastDamageTakenHP [A6h] > 0 [00h])) else jump to j25 (0568)
 
 -Variable comparisons-
-  9F0300 AE0000 06 D70400                          Check (priv0004[9F0300] == 0 [00h]) else jump to j04 (0170)		//Compares Var03[9F0300]
-  9F0100 AE0200 0B D70600                          Check (priv0004[9F0100] < 2 [02h]) else jump to j06 (017F)		//Compares Var01[9F0100]
+  9F0300 AE0000 06 D70400                          Check (Var03 [9F0300] == 0 [00h]) else jump to j04 (0170)
+  9F0100 AE0200 0B D70600                          Check (Var01 [9F0100] < 2 [02h]) else jump to j06 (017F)
   
 -Specific targets-
   AE0200 AE1500 B50F70 AE0200 AE0400 B50F70 02 D70500          Check ([700Fh] Auron [02h].isOnFrontline [15h] and [700Fh] Auron [02h].isAlive [04h]) else jump to j05 (0143)
@@ -37,7 +37,7 @@ FFX Opcode Information Compilation
   
 -Location encounter-
   B52470 AD0000 06 D70000                          Check (Battle.CurrentEncounter [7024h] == maca03_20 [014D0014h]) else jump to j00 (00FA)
-  9F0600 AD0000 06 D70800                          Check (priv0008 == bsil07_00 [00480000h]) else jump to j08 (01AC)
+  9F0600 AD0000 06 D70800                          Check (Var06 [9F0600] == bsil07_00 [00480000h]) else jump to j08 (01AC)
   
 -Can counterattack-
   B5E070 D70600                                    Check (Battle.isCounterattackAllowed [70E0h]()) else jump to j06 (0257)
@@ -54,10 +54,13 @@ FFX Opcode Information Compilation
   AEF3FF AE6800 AE0100 D81870                      Set [7018h] Self [FFF3h].NullIce [68h] = true [01h];
   
 -Setting variables-
-  AE0000 A00100                                    Set priv0000 = 0 [00h];
-  AE2D30 A00500                                    Set priv001C = "Curaga" [302Dh];
-  AEF2FF AE0400 AE0000 AE0000 B51070 A00300        Set priv0010 = Battle.findMatchingChr [7010h](group=FrontlineChars [FFF2h], property=isAlive [04h], unused=0 [00h], selector=Any/All [00h]);
+  AE0000 A00100                                    Set Var01 [A00100] = 0 [00h];
+  AE2D30 A00500                                    Set Var05 [A00500] = "Curaga" [302Dh];
+  AEF2FF AE0400 AE0000 AE0000 B51070 A00300        Set Var03 [A00300] = Battle.findMatchingChr [7010h](group=FrontlineChars [FFF2h], property=isAlive [04h], unused=0 [00h], selector=Any/All [00h]);
 
+-GetRandomValue-
+  B5A900 AE0200 18 A00300                          Set Var03 [A00300] = Common.GetRandomValue [00A9h]() mod 2 [02h];
+  B5A900 AE0400 18 A00100                          Set Var01 [A00100] = Common.GetRandomValue [00A9h]() mod 4 [04h];
 
 
 
