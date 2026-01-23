@@ -1,0 +1,166 @@
+This tutorial is intended to help you make modifications to FFX's battle commands.
+This includes editing command names, descriptions, and characteristics.
+
+You will need:
+  -A basic understanding of hexidecimal and bytes
+  -Programmer calculator
+  -command.bin file
+  -item.bin file
+  -monmagic1.bin file
+  -monmagic2.bin file
+  -ImHex with the ffx_en.tbl 
+  -FFXProjectEditor
+
+If you don't have the ffx_en.tbl here is a link: https://drive.google.com/file/d/1GwI3gqPU2nEN3zpdaHCneph4JbkAnfBu/view?usp=drive_link
+This file translates the hex values found in the battle command files into readable english.
+
+
+Changing Characteristics of Commands/Items/Monster Commands
+  Changing commands characteristics is super simple thanks to the FFXProjectEditor.
+  Open the FFXProjectEditor and load your master folder.
+  Click the Battle tab then the file you want to edit.
+  There are multiple check boxes at the top that contain the characteristics of the command.
+  Check the box you want to make the edits under.
+  Example: If I want Dark Attack to last 6 turns instead of 3 I'd check the Status box, locate the column to the right of Darkness and then change the 3 to a 6.
+  Save your changes then run your mod and test the result.
+
+Once you understand the concepts below you can make the same changes to the other battle command bin files. 
+For the sake of brevity I will only be talking about the command.bin.
+
+
+Name and Description Chunk Locations Within the Command Structure
+  Each command is a 96 byte structure.         *Note: monmagic commands have a 92 byte structure.*
+  Within each command structure there are 2 sets of 2 byte chunks that correspond to the name and description of the command.
+  The name chunk is bytes 0 and 1.
+  The description chunk is bytes 8 and 9.
+  These chunks tell the command what byte to begin reading relative to the offset the text structure begins at.
+  Example: the Attack command has [09 00] for it's description. If we go to offset: 0x7814 and count the proceeding bytes from 0 to 9 we arrive at the Attack description.
+  Byte reading ends when the line reaches a 0x00.
+  The first command begins at offset: 0x14
+  
+
+Finding Specific Command Names and Descriptions
+  To locate the exact offset where the command name or description is located you just need to do simple math.
+  Take the starting offset: 0x7814 and add the hex value located in the command's name chunk or description chunk.
+  Example: The second command starts at offset: 0x74 where we find the name chunk of [31 00]. So 0x7814 + 0x31 = 0x7845.
+  This sum is the offset we need to go to. 
+  At offset: 0x7845 we find [58 83 74 7C] which if you are using the ffx_en.tbl should read as Item. 
+  So we know that the second command in the command.bin is the command Item.
+  
+  
+Changing Command Names or Descriptions
+  Simply find the start location of the name or description in ImHex and edit the bytes using the FFX Text Encoding Table provided at the bottom of this tutorial.
+  You can check your changes by opening the edited file in the FFXProjectEditor.
+  
+  
+Adding Additional Text
+  If a description or name is too short or if you want to edit the EXTRA commands and give them descriptions here is what you do.
+  Scroll to the very bottom of the bin file you want to edit in ImHex.
+  Right click the final byte. 
+  Click the insert mode Option.
+  Begin adding the text you want. 
+  When finished make sure to end the line with 00.         *Note: If you forget to do this the file will crash.*
+  Then subtract the offset where your new text begins from the offset where the names and descriptions structure start.
+  Example: 0xAE24(my new text) - 0x7814 (text structure begins) = 3610 or [10 36]
+  This is not an offset, but a value for the Name or Description chunk.
+  Input your new value into the appropriate chunk and save the file.
+  Then open the file in FFXProjectEditor to see how the change effected it.
+  
+  
+For any questions or additional help join the Cid's Salvage Ship Discord: https://discord.gg/AGx2grw9nD
+  
+  
+  
+FFX Text Encoding Table
+00 = End Line
+03 = New Line
+0A = blue text8356
+B1 = following text will be colored blue.
+
+30 = 0
+31 = 1
+32 = 2
+33 = 3
+34 = 4
+35 = 5
+36 = 6
+37 = 7
+38 = 8
+39 = 9
+
+3A = Blank space
+3B = !
+3C = "
+3D = #
+3E = $
+3F = %
+40 = &
+41 = '
+42 = (
+43 = )
+44 = *
+45 = +
+46 = ,
+47 = -
+48 = Period
+49 = /
+4A = :
+4B = ;
+4C = <
+4D = =
+4E = >
+4F = ?
+
+50 = A
+51 = B
+52 = C
+53 = D
+54 = E
+55 = F
+56 = G
+57 = H
+58 = I
+59 = J
+5A = K
+5B = L
+5C = M
+5D = N
+5E = O
+5F = P
+60 = Q
+61 = R
+62 = S
+63 = T
+64 = U
+65 = V
+66 = W
+67 = X
+68 = Y
+69 = Z
+
+70 = a
+71 = b
+72 = c
+73 = d
+74 = e
+75 = f
+76 = g
+77 = h
+78 = i
+79 = j
+7A = k
+7B = l
+7C = m
+7D = n
+7E = o
+7F = p
+80 = q
+81 = r
+82 = s
+83 = t
+84 = u
+85 = v
+86 = w
+87 = x
+88 = y
+89 = z
