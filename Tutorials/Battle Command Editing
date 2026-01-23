@@ -2,17 +2,17 @@ This tutorial is intended to help you make modifications to FFX's battle command
 This includes editing command names, descriptions, and characteristics.
 
 You will need:
-  -A basic understanding of hexidecimal and bytes
-  -Programmer calculator
-  -command.bin file
-  -item.bin file
-  -monmagic1.bin file
-  -monmagic2.bin file
+  -A basic understanding of hexadecimal and bytes
+  -A way to convert between decimal and hexadecimal
+  -command.bin file            Contains all player commands
+  -item.bin file               Contains all data for every item in the game
+  -monmagic1.bin file          Contains the commands for each non-boss monster.
+  -monmagic2.bin file          Contains the commands for every boss in the game.
   -ImHex with the ffx_en.tbl 
   -FFXProjectEditor
 
 If you don't have the ffx_en.tbl here is a link: https://drive.google.com/file/d/1GwI3gqPU2nEN3zpdaHCneph4JbkAnfBu/view?usp=drive_link
-This file translates the hex values found in the battle command files into readable english.
+ImHex uses this table to convert the encoded text into readable english.
 
 
 Changing Characteristics of Commands/Items/Monster Commands
@@ -26,23 +26,24 @@ Changing Characteristics of Commands/Items/Monster Commands
 
 Once you understand the concepts below you can make the same changes to the other battle command bin files. 
 For the sake of brevity I will only be talking about the command.bin.
+LINK TO FULL COMMAND STRUCTURE BREAKDOWN: https://github.com/peppy-enterprises/fahrenheit/blob/main/core/ffx/command.cs
 
 
-Name and Description Chunk Locations Within the Command Structure
-  Each command is a 96 byte structure.         *Note: monmagic commands have a 92 byte structure.*
-  Within each command structure there are 2 sets of 2 byte chunks that correspond to the name and description of the command.
-  The name chunk is bytes 0 and 1.
-  The description chunk is bytes 8 and 9.
-  These chunks tell the command what byte to begin reading relative to the offset the text structure begins at.
+Name and Description Field Locations Within the Command Structure
+  Each command is a 92 byte structure.
+  Within each command structure there are 2 sets of 2 byte fields that correspond to the name and description of the command.
+  The name field is bytes 0 and 1.
+  The description field is bytes 8 and 9.
+  These fields tell the command what byte to begin reading relative to the offset the text structure begins at.
   Example: the Attack command has [09 00] for it's description. If we go to offset: 0x7814 and count the proceeding bytes from 0 to 9 we arrive at the Attack description.
   Byte reading ends when the line reaches a 0x00.
   The first command begins at offset: 0x14
   
-
+  
 Finding Specific Command Names and Descriptions
   To locate the exact offset where the command name or description is located you just need to do simple math.
-  Take the starting offset: 0x7814 and add the hex value located in the command's name chunk or description chunk.
-  Example: The second command starts at offset: 0x74 where we find the name chunk of [31 00]. So 0x7814 + 0x31 = 0x7845.
+  Take the starting offset: 0x7814 and add the hex value located in the command's name field or description field.
+  Example: The second command starts at offset: 0x74 where we find the name field of [31 00]. So 0x7814 + 0x31 = 0x7845.
   This sum is the offset we need to go to. 
   At offset: 0x7845 we find [58 83 74 7C] which if you are using the ffx_en.tbl should read as Item. 
   So we know that the second command in the command.bin is the command Item.
@@ -62,8 +63,8 @@ Adding Additional Text
   When finished make sure to end the line with 00.         *Note: If you forget to do this the file will crash.*
   Then subtract the offset where your new text begins from the offset where the names and descriptions structure start.
   Example: 0xAE24(my new text) - 0x7814 (text structure begins) = 3610 or [10 36]
-  This is not an offset, but a value for the Name or Description chunk.
-  Input your new value into the appropriate chunk and save the file.
+  This is not an offset, but a value for the Name or Description field.
+  Input your new value into the appropriate field and save the file.
   Then open the file in FFXProjectEditor to see how the change effected it.
   
   
