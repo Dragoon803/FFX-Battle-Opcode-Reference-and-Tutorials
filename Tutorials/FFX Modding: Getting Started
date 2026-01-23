@@ -1,47 +1,47 @@
 This tutorial is intended to help you get set up to mod FFX.
 There are several tools and files you will need. This tutorial also assumes that you have your own copy of FFX.
 
-	1) A copy of the extracted game files. 
-Within FFX's game files there is a folder named data. Inside this folder is the FFX_Data.vbf. This is the file we will extract from.
-Download the VBF Browser here: https://www.nexusmods.com/finalfantasy12/mods/3
-Both FFXII and FFX use vbf files. This program can be used for both games.
-Once downloaded, run the VBF Browser.
-Click OPEN and locate the FFX_data.vbf file. The location should look similar to this: SteamLibrary/steamapps/common/FINAL FANTASY FFX&FFX-2 HD Remaster/data.
-Once the vbf file loads select ffx_ps2 in the right hand window then click extract. Extract your game files wherever you'd like.
-It is recommended that you keep an unedited version of the extracted game files somewhere on your computer as a backup.
-With that done let's move to the next step.
+Obtaining Extracted Game Files 
+  Within FFX's game files there is a folder named data. Inside this folder is the FFX_Data.vbf. This is the file we will extract from.
+  Download the VBF Browser here: https://www.nexusmods.com/finalfantasy12/mods/3
+  Both FFXII and FFX use vbf files. This program can be used for both games.
+  Once downloaded, run the VBF Browser.
+  Click OPEN and locate the FFX_data.vbf file. The location should look similar to this: SteamLibrary/steamapps/common/FINAL FANTASY FFX&FFX-2 HD Remaster/data.
+  Once the vbf file loads select ffx_ps2 in the right hand window then click extract. Extract your game files wherever you'd like.
+  It is recommended that you keep an unedited version of the extracted game files somewhere on your computer as a backup.
+  With that done let's move to the next step.
   
-	2) Obtaining an FFX Mod Loader.
-There are two solid options for loading FFX mods. The FFX and X-2 HD External File Loader by FFGriever and Fahrenheit by Peppy-Enterprises.
+Obtaining an FFX Mod Loader
+  There are two solid options for loading FFX mods. The FFX and X-2 HD External File Loader by FFGriever and Fahrenheit by Peppy-Enterprises.
 
-	FFX External File Loader
-EFL is a simple file loader that lets you load your edited game files instead of the original game files. 
-This lets you make edits without worrying about corrupting or breaking your base game.
-Link to EFL: https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/150
+  FFX External File Loader
+	EFL is a simple file loader that lets you load your edited game files instead of the original game files. 
+	This lets you make edits without worrying about corrupting or breaking your base game.
+	Link to EFL: https://www.nexusmods.com/finalfantasyxx2hdremaster/mods/150
 
-	Fahrenheit
-Fahrenheit is a much more customizable program that allows you to not only load external files, but also make edits to the game's engine by hooking into the game's internal functions. 
-If you are looking to make major changes to FFX such as changing damage formulas, adding bonus damage to certain moves, etc then Fahrenheit is what you want.
-Just be aware that you will need to understand C# programming to fully utilize Fahrenheit's hook potential.
-Fahrenheit is a bit of a beast to setup so it is recommended that you carefully read and follow the GitHub instructions.
-If you run into any problems join the Cid's Salvage Ship discord. We will gladly help you set up Fahrenheit.
-Link to Fahrenheit: https://github.com/peppy-enterprises/fahrenheit
-Link to Cid's Salvage Ship Discord: https://discord.gg/AGx2grw9nD
+  Fahrenheit
+	Fahrenheit is a much more customizable program that allows you to not only load external files, but also make edits to the game's engine by hooking into the game's internal functions. 
+	If you are looking to make major changes to FFX such as changing damage formulas, adding bonus damage to certain moves, etc then Fahrenheit is what you want.
+	Just be aware that you will need to understand C# programming to fully utilize Fahrenheit's hook potential.
+	Fahrenheit is a bit of a beast to setup so it is recommended that you carefully read and follow the GitHub instructions.
+	If you run into any problems join the Cid's Salvage Ship discord. We will gladly help you set up Fahrenheit.
+	Link to Fahrenheit: https://github.com/peppy-enterprises/fahrenheit
+	Link to Cid's Salvage Ship Discord: https://discord.gg/AGx2grw9nD
 
 
 
 Other useful tools:
 
-	ImHex
-A very in-depth hex editor. It comes with hexpat files specifically built to breakdown the internal structures within certain FFX files. It is a very useful tool and highly recommended.
-Link: https://imhex.werwolv.net/
+ImHex
+  A very in-depth hex editor. It comes with hexpat files specifically built to breakdown the internal structures within certain FFX files. It is a very useful tool and highly recommended.
+  Link: https://imhex.werwolv.net/
 
-	FFXDataParser by Karifean
-This program translates the hex data within FFX game files and outputs them into human readable text. Can be a tad difficult to set up, but is well worth the effort.
-Link: https://github.com/Karifean/FFXDataParser
-You can also find already parsed data files in the Cid's Salvage Ship Discord.
+FFXDataParser by Karifean
+  This program translates the hex data within FFX game files and outputs them into human readable text. Can be a tad difficult to set up, but is well worth the effort.
+  Link: https://github.com/Karifean/FFXDataParser
+  You can also find already parsed data files in the Cid's Salvage Ship Discord.
 
-	FFXProjectEditor by Osdanova.
-A program designed to edit various aspects of FFX including: monster properties, items, commands, monster commands, etc. Another highly recommended tool.
-Link: https://github.com/osdanova/FFXProjectEditor
-The GitHub has set up & how to use instructions.
+FFXProjectEditor by Osdanova.
+  A program designed to edit various aspects of FFX including: monster properties, items, commands, monster commands, etc. Another highly recommended tool.
+  Link: https://github.com/osdanova/FFXProjectEditor
+  The GitHub has set up & how to use instructions.
